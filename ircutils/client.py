@@ -147,7 +147,10 @@ class SimpleClient(object):
             
             def _auto_joiner(client, event):
                 for channel in channels:
-                    client.join_channel(channel)
+                    if isinstance(channel, list):
+                        client.join_channel(channel[0], channel[1])
+                    else:
+                        client.join_channel(channel)
             
             self.events["welcome"].add_handler(_auto_joiner)
     
